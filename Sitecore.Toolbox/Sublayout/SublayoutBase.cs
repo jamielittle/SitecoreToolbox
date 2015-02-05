@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Sitecore.Data.Items;
 using Sitecore.Web.UI.WebControls;
+using System.Collections.Specialized;
 
 namespace Sitecore.Toolbox.Sublayout
 {
@@ -49,6 +50,24 @@ namespace Sitecore.Toolbox.Sublayout
 
                 return returnItem;
             }
+        }
+
+
+        public NameValueCollection Parameters
+        {
+            get 
+            { 
+                return WebUtil.ParseUrlParameters(Sublayout.Parameters); 
+            }
+        }
+
+        public bool ParameterPresent(string key)
+        {
+            if (String.IsNullOrWhiteSpace(key))
+                return false;
+
+            return Request.Params[key] != null &&
+                   !String.IsNullOrWhiteSpace(Request.Params[key]);
         }
     }
 }
