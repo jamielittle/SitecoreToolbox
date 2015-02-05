@@ -66,8 +66,9 @@ namespace Sitecore.Toolbox.Sublayout
             if (String.IsNullOrWhiteSpace(key))
                 return false;
 
-            return Request.Params[key] != null &&
-                   !String.IsNullOrWhiteSpace(Request.Params[key]);
+            return Parameters != null &&
+                   Parameters[key] != null &&
+                   !String.IsNullOrWhiteSpace(Parameters[key]);
         }
     }
 }
