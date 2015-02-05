@@ -17,6 +17,17 @@ namespace Sitecore.Toolbox.Sublayout
             }
         }
 
+        public Placeholder Placeholder
+        {
+            get
+            {
+                if (Sublayout != null)
+                    return Sublayout.Parent as Placeholder;
+
+                return null;
+            }
+        }
+
         public bool DataSourcePresent
         {
             get
