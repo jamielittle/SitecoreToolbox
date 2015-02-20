@@ -5,6 +5,7 @@ using System.Web;
 using Sitecore.Data.Items;
 using Sitecore.Web.UI.WebControls;
 using System.Collections.Specialized;
+using System.Web.UI;
 using Sitecore.Web;
 
 namespace Sitecore.Toolbox.Sublayout
@@ -81,6 +82,42 @@ namespace Sitecore.Toolbox.Sublayout
             return Parameters != null &&
                    Parameters[key] != null &&
                    !String.IsNullOrWhiteSpace(Parameters[key]);
+        }
+
+        public void BindDatasourceToSitecoreControls()
+        {
+            BindDatasourceToSitecoreControls(DataSourceItem);
+        }
+
+        public void BindDatasourceToSitecoreControls(Item dataSource)
+        {
+            if (Controls.Count > 0)
+            {
+                BindControls(this.Controls, dataSource);
+            }
+        }
+
+        private void BindControls(ControlCollection controls, Item dataSource)
+        {
+            foreach (Control control in controls)
+            {
+                if (control is FieldControl)
+                {
+                    var fieldControl = control as FieldControl;
+                    fieldControl.Item = dataSource;
+                }
+
+                if (control is FieldRenderer)
+                {
+                    var fieldRenderer = control as FieldRenderer;
+                    fieldRenderer.Item = dataSource;
+                }
+
+                if (control.Controls.Count > 0)
+                {
+                    BindControls(control.Controls, dataSource);
+                }
+            }
         }
     }
 }
