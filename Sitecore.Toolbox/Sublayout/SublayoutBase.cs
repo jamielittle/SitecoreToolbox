@@ -104,13 +104,20 @@ namespace Sitecore.Toolbox.Sublayout
                 if (control is FieldControl)
                 {
                     var fieldControl = control as FieldControl;
-                    fieldControl.Item = dataSource;
+                    
+                    if (fieldControl.Item == null)
+                    {
+                        fieldControl.Item = dataSource; 
+                    }
                 }
 
                 if (control is FieldRenderer)
                 {
                     var fieldRenderer = control as FieldRenderer;
-                    fieldRenderer.Item = dataSource;
+                    if (fieldRenderer.Item == null)
+                    {
+                        fieldRenderer.Item = dataSource;
+                    }
                 }
 
                 if (control.Controls.Count > 0)
